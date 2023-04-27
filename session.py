@@ -35,7 +35,7 @@ def get_response(input_text):
         timeout=60,
     )
     message = response.choices[0]['message']['content']
-    # session_messages.append({"role": "user", "content": input_text})
+    # pdb.set_trace()
     session_messages.append({"role": "assistant", "content": message})
     return message
 
@@ -43,8 +43,8 @@ while True:
     try:
         user_input = input("You: ")
         response = get_response(user_input)
-        
-        assistant_response = next((msg["content"] for msg in session_messages if msg["role"] == "assistant" and msg["content"]), None)
+        # pdb.set_trace()
+        assistant_response = next((msg["content"] for msg in reversed(session_messages) if msg["role"] == "assistant" and msg["content"]), None)
         if assistant_response:
             print("Assistant:", assistant_response)
     
