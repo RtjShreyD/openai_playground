@@ -6,3 +6,4 @@
 4. `pip install pyaudio`
 5. `sudo apt install ffmpeg`
 6. `pip install -U openai-whisper`
+7. `pip install -r requirements.txt` (if anything missed should be installed)
