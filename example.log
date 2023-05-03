@@ -1,0 +1,16 @@
+2023-05-04 02:45:53,374 - INFO - Mic - "0" found, audio_input_device(HDA NVidia: HDMI 0 (hw:0,3))
+2023-05-04 02:45:53,374 - INFO - Mic - "1" found, audio_input_device(HDA NVidia: HDMI 1 (hw:0,7))
+2023-05-04 02:45:53,374 - INFO - Mic - "2" found, audio_input_device(HDA NVidia: HDMI 2 (hw:0,8))
+2023-05-04 02:45:53,374 - INFO - Mic - "3" found, audio_input_device(HDA NVidia: HDMI 3 (hw:0,9))
+2023-05-04 02:45:53,374 - INFO - Mic - "4" found, audio_input_device(HD-Audio Generic: ALC233 Analog (hw:1,0))
+2023-05-04 02:45:53,374 - INFO - Mic - "5" found, audio_input_device(hdmi)
+2023-05-04 02:45:53,375 - INFO - Mic - "6" found, audio_input_device(pulse)
+2023-05-04 02:45:53,375 - INFO - Mic - "7" found, audio_input_device(default)
+2023-05-04 02:45:53,452 - INFO - Mic open start speak...
+2023-05-04 02:45:59,087 - DEBUG - message='Request to OpenAI API' method=post path=https://api.openai.com/v1/engines/text-davinci-003/completions
+2023-05-04 02:45:59,087 - DEBUG - api_version=None data='{"prompt": "hi gpd", "max_tokens": 512, "n": 1, "stop": null, "temperature": 0.5, "stream": true}' message='Post details'
+2023-05-04 02:45:59,088 - DEBUG - Converted retries value: 2 -> Retry(total=2, connect=None, read=None, redirect=None, status=None)
+2023-05-04 02:45:59,092 - DEBUG - Starting new HTTPS connection (1): api.openai.com:443
+2023-05-04 02:45:59,682 - DEBUG - https://api.openai.com:443 "POST /v1/engines/text-davinci-003/completions HTTP/1.1" 200 None
+2023-05-04 02:45:59,683 - DEBUG - message='OpenAI API response' path=https://api.openai.com/v1/engines/text-davinci-003/completions processing_ms=104 request_id=93d519be2b16c7782a8171843b590eb4 response_code=200
+2023-05-04 02:46:12,462 - INFO - Mic open start speak...
