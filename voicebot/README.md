@@ -4,7 +4,7 @@
 
 Before you start integrating Twilio with ChatGPT, make sure you have the following prerequisites:
 
-1. **Twilio Account:** Sign up for a Twilio account. You can sign up for free using [this link](https://www.twilio.com/try-twilio) and receive $10 in credit when you upgrade your account.
+1. **Twilio Account:** Sign up for a Twilio account. 
 
 2. **Twilio Phone Number:** Obtain a Twilio phone number. You can find instructions on how to get your first Twilio number in your trial account [here](https://www.twilio.com/docs/usage/tutorials/how-to-use-your-free-trial-account#get-your-first-twilio-phone-number).
 
@@ -61,10 +61,18 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
    ```javascript
    // Add the code for the /respond Function here
    ```
+   
+### Respond Function
 
+7. Open `makeacall.js` and add the following code:
+
+   ```javascript
+   // Add the code for the /respond Function here
+   ```
+   
 ### Deployment
 
-8. Deploy your project using the following command:
+9. Deploy your project using the following command:
 
    ```
    twilio serverless:deploy
@@ -72,7 +80,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 
 ### Configuring Phone Number
 
-9. Configure a Twilio phone number to use the Functions you created by running the following command (replace `<PN SID>` or `<E.164>` with the appropriate value and `<The URL for the /transcribe Function>` with the URL for your `/transcribe` Function):
+10. Configure a Twilio phone number to use the Functions you created by running the following command (replace `<PN SID>` or `<E.164>` with the appropriate value and `<The URL for the /transcribe Function>` with the URL for your `/transcribe` Function):
 
    ```
    twilio phone-numbers:update <PN SID or E.164> --voice-url=<The URL for the /transcribe Function>
@@ -80,6 +88,6 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 
 ### Testing
 
-10. Test your integration by making a call to your configured Twilio phone number.
+11. Test your integration by making a call to your configured Twilio phone number.
 
 Now your integration is ready to capture spoken input from callers, convert it to text using Twilio speech recognition, send it to the ChatGPT API, and play the response back to the caller in the form of AI-generated speech. Enjoy your Twilio ChatGPT integration!
