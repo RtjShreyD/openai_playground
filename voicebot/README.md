@@ -51,7 +51,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 6. Open `transcribe.js` and add the following code:
 
    ```javascript
-   // Add the code for the /transcribe Function here
+   // Copy and Paste the code from the /transcribe functions form function folder
    ```
 
 ### Respond Function
@@ -59,7 +59,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 7. Open `respond.js` and add the following code:
 
    ```javascript
-   // Add the code for the /respond Function here
+   // Copy the code from the /respond functions form function folder
    ```
    
 ### Respond Function
@@ -67,7 +67,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 7. Open `makeacall.js` and add the following code:
 
    ```javascript
-   // Add the code for the /respond Function here
+   // Add the code for the /makeacall Function here
    ```
    
 ### Deployment
@@ -80,11 +80,16 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 
 ### Configuring Phone Number
 
-10. Configure a Twilio phone number to use the Functions you created by running the following command (replace `<PN SID>` or `<E.164>` with the appropriate value and `<The URL for the /transcribe Function>` with the URL for your `/transcribe` Function):
+10. Configure a Twilio phone number to use the Functions you created by running the following command (replace `<PN SID>` or `<E.164>` with the appropriate value and `<The URL for the /transcribe Function>` with the URL for your `/makeacall` Function):
 
    ```
-   twilio phone-numbers:update <PN SID or E.164> --voice-url=<The URL for the /transcribe Function>
+   twilio phone-numbers:list
+   // then copy the phone sid of the number that you have to work in twilio
    ```
+   ```
+   twilio phone-numbers:update <PN SID or E.164> --voice-url=<The URL for the /makeacall Function>
+   ```
+
 
 ### Testing
 
