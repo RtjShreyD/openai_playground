@@ -28,7 +28,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 
 2. Navigate to the directory of your project.
 
-3. Update the `.env` file with your Twilio authentication token as `AUTH_TOKEN` and your OpenAI API key as `OPENAI_API_KEY`. Your Twilio account SID should be auto-populated. Your `.env` file should look like this (replace `XXXXX` with your respective keys):
+3. Create a `.env` file similar as `.env.example` with your Twilio authentication token as `AUTH_TOKEN` and your OpenAI API key as `OPENAI_API_KEY`. Your Twilio account SID should be auto-populated. Your `.env` file should look like this (replace `XXXXX` with your respective keys):
 
    ```
    ACCOUNT_SID=XXXXX
@@ -44,13 +44,17 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 
 ### Creating Functions
 
-5. Create two Functions, `/transcribe` and `/respond`. Create JavaScript files named `transcribe.js` and `respond.js` in the functions folder of your project.
+5. Create two Functions, `/transcribe` and `/respond` and `/makeacall`. Create JavaScript files named `transcribe.js` and `respond.js` in the functions folder of your project.
+    /transcribe function - used to generate the user speech to text in real time on the call .
+    /respond function - used to generate response for the user query  using chatgpt and convert it to into speech and respond
+    /makeacall function - used to make a outbound call to the user using twilio number .
+   
 
 ### Transcribe Function
 
 6. Open `transcribe.js` and add the following code:
-
-   ```javascript
+     
+   ```
    // Copy and Paste the code from the /transcribe functions form function folder
    ```
 
@@ -58,15 +62,15 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 
 7. Open `respond.js` and add the following code:
 
-   ```javascript
+   ```
    // Copy the code from the /respond functions form function folder
    ```
    
-### Respond Function
+### makeacall Function
 
 7. Open `makeacall.js` and add the following code:
 
-   ```javascript
+   ```
    // Add the code for the /makeacall Function here
    ```
    
