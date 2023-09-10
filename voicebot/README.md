@@ -25,7 +25,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
    ```
    twilio serverless:init <project-name>
    ```
-   ![Alt text](voicebot\docs_assets\image-3.png)
+   ![Alt text](readmeassets/initializeproject.png)
 2. Navigate to the directory of your project.
 
 3. Create a `.env` file similar as `.env.example` with your Twilio authentication token as `AUTH_TOKEN` and your OpenAI API key as `OPENAI_API_KEY`. Your Twilio account SID should be auto-populated. Your `.env` file should look like this (replace `XXXXX` with your respective keys):
@@ -93,10 +93,26 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
    ```
    twilio phone-numbers:update <PN SID or E.164> --voice-url=<The URL for the /makeacall Function>
    ```
-
+  
+  and Click on the link generated using above command
+   ![Alt text](readmeassets/makeacallsid.png)
 
 ### Testing
 
 11. Test your integration by making a call to your configured Twilio phone number.
 
 Now your integration is ready to capture spoken input from callers, convert it to text using Twilio speech recognition, send it to the ChatGPT API, and play the response back to the caller in the form of AI-generated speech. Enjoy your Twilio ChatGPT integration!
+
+### Check Content of the Call
+
+12.   We can still get our hands on the content of the conversation using the Call Events API. Here's how to grab the details using the Twilio :
+
+```
+twilio api:core:calls:events:list --call-sid <The call SID you want data> -o json
+// the call sid is that you get when executed makeacall.js
+
+```
+
+
+
+Using this API you can retrieve the requests, responses, and associated parameters and pump them directly into your internal systems to do things like provide agents a heads-up about what the caller had been asking about before they were connected
