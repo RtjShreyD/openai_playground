@@ -25,9 +25,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
    ```
    twilio serverless:init <project-name>
    ```
-
    ![Alt text](image-3.png)
-
 2. Navigate to the directory of your project.
 
 3. Create a `.env` file similar as `.env.example` with your Twilio authentication token as `AUTH_TOKEN` and your OpenAI API key as `OPENAI_API_KEY`. Your Twilio account SID should be auto-populated. Your `.env` file should look like this (replace `XXXXX` with your respective keys):
