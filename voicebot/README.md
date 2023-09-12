@@ -118,7 +118,7 @@ twilio api:core:calls:events:list --call-sid <The call SID you want data> -o jso
 Using this API you can retrieve the requests, responses, and associated parameters and pump them directly into your internal systems to do things like provide agents a heads-up about what the caller had been asking about before they were connected
 
 ### Testing With Form to Redirect to the query paramter 
-  In `assets\testing\form.html` , you can make a outbound call simply writing your number and the format of number should be in <E.164>
+12.  In `assets\testing\form.html` , you can make a outbound call simply writing your number and the format of number should be in <E.164>
 
   ![Alt text](readmeassets/TestingForm.png)
 
@@ -129,9 +129,7 @@ Using this API you can retrieve the requests, responses, and associated paramete
 
 ### Debugging from Twilio Dashboard
 
-   Login on Twilio console , and then Twilio Dashboard will open,
-   then click on the monitor section so you can check all the content of the conversation done during the call using Twilio .
-
+13.  Login on Twilio console , and then Twilio Dashboard will open,then click on the monitor section so you can check all the content of the conversation done during the call using Twilio.
     ![Alt text](readmeassets/Dashboard_main.png)
 
     Click on the `Log` , so can access the various contents in distinct way. 
