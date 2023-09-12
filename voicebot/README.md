@@ -116,3 +116,12 @@ twilio api:core:calls:events:list --call-sid <The call SID you want data> -o jso
 
 
 Using this API you can retrieve the requests, responses, and associated parameters and pump them directly into your internal systems to do things like provide agents a heads-up about what the caller had been asking about before they were connected
+
+### Testing With Form to Redirect to the query paramter 
+  In `assets\testing\form.html` , you can make a outbound call simply writing your number and the format of number should be in <E.164>
+
+  ![Alt text](readmeassets/TestingForm.png)
+
+  and on calling you will redirect to 
+
+  ![Alt text](readmeassets/makeacallsid.png)
