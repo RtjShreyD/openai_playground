@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="style.css" rel="stylesheet">
+    </head>
+    <body>
+        <h1>Make a Call</h1>
+        <form  id="callForm" action="https://voicebotdemo-9971-dev.twil.io/makeacall" method="POST">
+            <label for="to">To Number:</label>
+            <input type="text" id="to" name="to" placeholder="Enter the phone number">
+            <br>
+            <input type="submit" value="Call">
+        </form>
+        <script>
+            // JavaScript to update the URL when the form is submitted
+            document.getElementById("callForm").addEventListener("submit", function() {
+                const toNumber = document.getElementById("to").value;
+                const newUrl = `https://voicebotdemo-9971-dev.twil.io/makeacall?to=${toNumber}`;
+                this.action = newUrl;
+            });
+        </script>
+    </body>
+</html>
