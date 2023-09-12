@@ -134,12 +134,12 @@ Using this API you can retrieve the requests, responses, and associated paramete
 
     Click on the `Log` , so can access the various contents in distinct way. 
      
-     => When click on `error` , you will get all the call details of the calls in which error occurs ...
+     => When click on `error` , you will get all the call details of the calls in which error occurs 
         ![Alt text](readmeassets/Error_logs.png)
 
-    => on clicking on `calls`, you will have access to all calls done using twilio...
+    => on clicking on `calls`, you will have access to all calls done using twilio
+        ![Alt text](readmeassets/Call_logs.png)
        
-![Alt text](readmeassets/Error_logs.png)
 
   => to access the particular call info, click on the `call sid` and you will get all the call details and also their request inspector logs 
 
