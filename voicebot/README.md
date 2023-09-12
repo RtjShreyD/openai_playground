@@ -132,16 +132,16 @@ Using this API you can retrieve the requests, responses, and associated paramete
 13.  Login on Twilio console , and then Twilio Dashboard will open,then click on the monitor section so you can check all the content of the conversation done during the call using Twilio.
     ![Alt text](readmeassets/Dashboard_main.png)
 
-    Click on the `Log` , so can access the various contents in distinct way. 
+ => Click on the `Log` , so can access the various contents in distinct way. 
      
-     => When click on `error` , you will get all the call details of the calls in which error occurs 
+ => When click on `error` , you will get all the call details of the calls in which error occurs 
         ![Alt text](readmeassets/Error_logs.png)
 
-    => on clicking on `calls`, you will have access to all calls done using twilio
+ => on clicking on `calls`, you will have access to all calls done using twilio
         ![Alt text](readmeassets/Call_logs.png)
        
 
-  => to access the particular call info, click on the `call sid` and you will get all the call details and also their request inspector logs 
+ => to access the particular call info, click on the `call sid` and you will get all the call details and also their request inspector logs 
 
   ![Alt text](readmeassets/Call_Details.png)
   ![Alt text](readmeassets/Request_logs.png)
