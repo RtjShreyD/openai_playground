@@ -40,7 +40,7 @@ def get_gpt_response(prompt: str) -> Text:
     
     # Stream response from ChatGpt
     for resp in openai.Completion.create(engine=chat_gpt3_model_engine, prompt=prompt, max_tokens=512, n=1, stop=None, temperature=0.5, stream=True):
-        text = resp.choices[0].text
+        text = resp.choices[0].message
         results.append(text)
         sys.stdout.write(text)
         sys.stdout.flush()
