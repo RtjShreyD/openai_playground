@@ -60,7 +60,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 
 6. Create an application on your [Google Cloud Console](https://console.cloud.google.com/home) to get credentials. 
 
-Download your keys or credentials as json file and store that file in the project folder and after that run the following command:
+    Download your keys or credentials as json file and store that file in the project folder and after that run the following command:
 
     ```
     npm install --save @google-cloud/speech
