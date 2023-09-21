@@ -18,7 +18,7 @@ exports.handler = function(context, event, callback) {
         speechTimeout: 'auto', // Automatically determine the end of user speech
         speechModel: 'experimental_conversations', // Use the conversation-based speech recognition model
         input: 'speech', // Specify speech as the input type
-        action: '/respond', // Send the collected input to /respond 
+        action: '/english/respond', // Send the collected input to /respond 
         
     });
     console.log("Gather worked");

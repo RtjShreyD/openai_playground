@@ -50,7 +50,7 @@ exports.handler = async function(context, event, callback) {
     twiml.redirect({
             method: "POST",
         },
-        `/transcribe`
+        `/hindi/transcribe`
     );
     
     // Since we're using the response object to handle cookies we can't just pass the TwiML straight back to the callback, we need to set the appropriate header and return the TwiML in the body of the response
@@ -101,7 +101,7 @@ exports.handler = async function(context, event, callback) {
                         // Create a TwiML redirect element to redirect the user to the /transcribe endpoint
                         method: "POST",
                     },
-                    `/transcribe`
+                    `/hindi/transcribe`
                 );
                 response.appendHeader("Content-Type", "application/xml"); // Set the Content-Type header of the response to "application/xml"
                 response.setBody(twiml.toString()); // Set the body of the response to the XML string representation of the TwiML response
@@ -123,7 +123,7 @@ exports.handler = async function(context, event, callback) {
                         // Create a TwiML redirect element to redirect the user to the /transcribe endpoint
                         method: "POST",
                     },
-                    `/transcribe`
+                    `/hindi/transcribe`
                 );
                 response.appendHeader("Content-Type", "application/xml"); // Set the Content-Type header of the response to "application/xml"
                 response.setBody(twiml.toString()); // Set the body of the response to the XML string representation of the TwiML response
