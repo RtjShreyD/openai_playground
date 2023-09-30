@@ -5,9 +5,13 @@ exports.handler = async function(context, event, callback) {
     // Set up the OpenAI API with the API key
     // const configuration = new Configuration({ apiKey: context.OPENAI_API_KEY });
     const openai = new OpenAI({api_key:context.OPENAI_API_KEY});
+    const fs = require('fs');
+    const config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
 
     // Set up the Twilio VoiceResponse object to generate the TwiML
     const twiml = new Twilio.twiml.VoiceResponse();
+
+    const Voice_assistant = config.languages.english.voice;
 
     // Initiate the Twilio Response object to handle updating the cookie with the chat history
     const response = new Twilio.Response();
@@ -41,10 +45,11 @@ exports.handler = async function(context, event, callback) {
 
     // Generate some <Say> TwiML using the cleaned up AI response
     twiml.say({
-            voice: "Polly.Joanna-Neural",
+            voice: Voice_assistant,
         },
         cleanedAiResponse
     );
+    
 
     // Redirect to the Function where the <Gather> is capturing the caller's speech
     twiml.redirect({
@@ -52,7 +57,7 @@ exports.handler = async function(context, event, callback) {
         },
         `/english/transcribe`
     );
-
+    
     // Since we're using the response object to handle cookies we can't just pass the TwiML straight back to the callback, we need to set the appropriate header and return the TwiML in the body of the response
     response.appendHeader("Content-Type", "application/xml");
     response.setBody(twiml.toString());
@@ -93,7 +98,7 @@ exports.handler = async function(context, event, callback) {
                 console.error("Error: OpenAI API returned a 500 status code."); // Log an error message indicating that the OpenAI API returned a 500 status code
                 twiml.say({
                         // Create a TwiML say element to provide an error message to the user
-                        voice: "Polly.Joanna-Neural",
+                        voice: Voice_assistant,
                     },
                     "Oops, looks like I got an error from the OpenAI API on that request. Let's try that again."
                 );
@@ -115,7 +120,7 @@ exports.handler = async function(context, event, callback) {
                 console.error("Error: OpenAI API request timed out."); // Log an error message indicating that the OpenAI API request timed out
                 twiml.say({
                         // Create a TwiML say element to provide an error message to the user
-                        voice: "Polly.Joanna-Neural",
+                        voice: Voice_assistant,
                     },
                     "I'm sorry, but it's taking me a little bit too long to respond. Let's try that again, one more time."
                 );
@@ -140,14 +145,14 @@ exports.handler = async function(context, event, callback) {
         let isAI = true;
         const messages = [{
                 role: "system",
-                content: "You are a creative, funny, friendly and amusing AI assistant named Joanna. Please provide engaging but concise responses.",
+                content: config.languages.english.system_content,
             },
             {
                 role: "user",
-                content: "We are having a casual conversation over the telephone so please provide engaging but concise responses.",
+                content: config.languages.english.user_content,
             },
         ];
-
+        console.log(messages.data);
         // Iterate through the conversation history and alternate between 'assistant' and 'user' roles
         for (const message of conversation.split(";")) {
             const role = isAI ? "assistant" : "user";
@@ -160,4 +165,3 @@ exports.handler = async function(context, event, callback) {
         return messages;
     }
 };
-w

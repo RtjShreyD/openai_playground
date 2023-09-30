@@ -1,43 +1,50 @@
-exports.handler = function(context, event, callback) {
-    // Create a TwiML Voice Response object to build the response
+exports.handler = function (context, event, callback) {
     const twiml = new Twilio.twiml.VoiceResponse();
-
-    // If no previous conversation is present, or if the conversation is empty, start the conversation
-    if (!event.request.cookies.convo) {
-        // Greet the user with a message using AWS Polly Neural voice
-        twiml.say({
-                voice: 'Polly.Joanna-Neural',
-            },
-            "Hey! I'm Joanna, a chatbot created using Twilio and ChatGPT. What would you like to talk about today?"
+    // const recordingSid = event.RecordingSid;
+    // const transcriptionSid = event.TranscriptionSid;
+    // console.log(`Recording SID: ${recordingSid}`);
+    // console.log(`Transcription SID: ${transcriptionSid}`);
+    const fs = require('fs');
+    const config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
+    const Voice_assistant = config.languages.english.voice;
+  
+    // Process the recording and transcription SIDs as needed
+      // Handle the rest of the conversation logic here
+      if (!event.request.cookies.convo) {
+        // Greet the user at the beginning of the conversation
+        twiml.say(
+          {
+            // voice: 'Polly.Joanna-Neural',
+            voice :Voice_assistant,
+          },
+          config.languages.english.welcome_msg
         );
-    }
-
-
-    // Listen to the user's speech and pass the input to the /respond Function
-    twiml.gather({
-        speechTimeout: 'auto', // Automatically determine the end of user speech
-        speechModel: 'experimental_conversations', // Use the conversation-based speech recognition model
-        input: 'speech', // Specify speech as the input type
-        action: '/english/respond', // Send the collected input to /respond 
-        
-    });
-    console.log("Gather worked");
-
-
+      }
+      // Listen to the user's speech and pass the input to the /respond Function
+      twiml.gather({
+        action: '/english/respond',// Send the collected input to /respond
+        speechTimeout: 3, // Automatically determine the end of user speech
+        speechModel: 'phone-call', // Use the conversation-based speech recognition model
+        input: 'speech dtmf', // Specify speech as the input type
+      });
+    
+  
     // Create a Twilio Response object
     const response = new Twilio.Response();
-
+    console.log(response)
+  
     // Set the response content type to XML (TwiML)
     response.appendHeader('Content-Type', 'application/xml');
-
+  
     // Set the response body to the generated TwiML
     response.setBody(twiml.toString());
-
+  
     // If no conversation cookie is present, set an empty conversation cookie
     if (!event.request.cookies.convo) {
-        response.setCookie('convo', '', ['Path=/']); 
+      response.setCookie('convo', '', ['Path=/']);
     }
-
+  
     // Return the response to Twilio
     return callback(null, response);
-};
+  };
+  

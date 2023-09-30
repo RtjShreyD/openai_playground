@@ -1,30 +1,37 @@
 exports.handler = function (context, event, callback) {
   const twiml = new Twilio.twiml.VoiceResponse();
-  
+  // const recordingSid = event.RecordingSid;
+  // const transcriptionSid = event.TranscriptionSid;
+  // console.log(`Recording SID: ${recordingSid}`);
+  // console.log(`Transcription SID: ${transcriptionSid}`);
+  const fs = require('fs');
+  const config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
+  const Voice_assistant = config.languages.hindi.voice;
+
     // Handle the rest of the conversation logic here
     if (!event.request.cookies.convo) {
       // Greet the user at the beginning of the conversation
       twiml.say(
         {
           // voice: 'Polly.Joanna-Neural',
-          voice :'Polly.Kajal-Neural',
+          voice :Voice_assistant,
         },
-        // "Hey! I'm Joanna, a chatbot created using Twilio and ChatGPT. What would you like to talk about today?"
-        "अरे! मैं जोआना हूं, ट्विलियो और चैटजीपीटी का उपयोग करके बनाया गया एक चैटबॉट। आप आज किस बारे में बात करना चाहेंगे?"
+        config.languages.hindi.welcome_msg
       );
     }
-
     // Listen to the user's speech and pass the input to the /respond Function
     twiml.gather({
-      speechTimeout: 'auto', // Automatically determine the end of user speech
-      speechModel: 'experimental_conversations', // Use the conversation-based speech recognition model
-      input: 'speech', // Specify speech as the input type
-      action: '/hindi/respond', // Send the collected input to /respond
+      action: '/hindi/respond',// Send the collected input to /respond
+      speechTimeout: 3, // Automatically determine the end of user speech
+      speechModel: 'phone-call', // Use the conversation-based speech recognition model
+      input: 'speech dtmf', // Specify speech as the input type
+       numdigits:1,
     });
   
 
   // Create a Twilio Response object
   const response = new Twilio.Response();
+  console.log(response)
 
   // Set the response content type to XML (TwiML)
   response.appendHeader('Content-Type', 'application/xml');
