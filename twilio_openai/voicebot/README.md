@@ -49,7 +49,10 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
     /respond function - used to generate response for the user query  using chatgpt and convert it to into speech and respond
     /makeacall function - used to make a outbound call to the user using twilio number .
    
-
+### Choose language Of the agent
+   `/english` - the responses will be in english only and the query also in english
+   `/hindi` - the responses can in hindi or english or both and query also . 
+    
 ### Transcribe Function
 
 6. Open `transcribe.js` and add the following code:
