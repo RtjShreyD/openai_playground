@@ -34,6 +34,7 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
    ACCOUNT_SID=XXXXX
    AUTH_TOKEN=XXXXX
    OPENAI_API_KEY=XXXXX
+   TWILIO_NUMBER = XXXX
    ```
 
 4. Install the OpenAI NPM package as a dependency:
