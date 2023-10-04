@@ -7,11 +7,41 @@ exports.handler = async function(context, event, callback) {
     const openai = new OpenAI({api_key:context.OPENAI_API_KEY});
     const fs = require('fs');
     const config = JSON.parse(fs.readFileSync('config.json', 'utf-8'));
+    const digitPressed = event.Digits ; 
+    console.log(digitPressed);
+    const phoneNumber = '+919651013343';
 
+   
     // Set up the Twilio VoiceResponse object to generate the TwiML
     const twiml = new Twilio.twiml.VoiceResponse();
-
+// the pressed function has issues going currently ...
     const Voice_assistant = config.languages.hindi.voice;
+    if (digitPressed === '1') {
+        console.log(`User pressed 1. Hanging up the call.`);
+        twiml.say({
+            // Create a TwiML say element to provide an error message to the user
+            voice: Voice_assistant,
+        },
+        "Redirecting the call to human agent"
+    );
+        twiml.dial({
+            callerId: '+12024558976', // Your Twilio phone number
+        }, phoneNumber);
+        return callback(null,twiml);
+      }
+    
+      const speech = event.SpeechResult;
+      if (speech == 'Call to Human Agent') {
+          // Assuming phoneNumber is a valid phone number or Twilio number
+          // You can modify this to add validation as needed
+          const phoneNumber = '+919651013343';
+          console.log(`User provided phone number: ${phoneNumber}`);
+  
+          // Redirect to a new call with the provided phone number
+          
+  
+          return callback(null, twiml);
+      }
 
     // Initiate the Twilio Response object to handle updating the cookie with the chat history
     const response = new Twilio.Response();
