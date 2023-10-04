@@ -1,0 +1,26 @@
+[
+    {
+        "patient_name": "John Doe",
+        "patient_email": "john.doe@example.com",
+        "patient_phone": "555-1234",
+        "patient_case": "General Checkup",
+        "doctor_name": "Dr. Smith",
+        "department_name": "General Medicine",
+        "appointment_date": "01/10/23",
+        "appointment_time": "3:00 pm",
+        "send_email": true,
+        "send_sms": true
+    },
+    {
+        "patient_name": "Mark Johanson",
+        "patient_email": "markjoan@example.com",
+        "patient_phone": "555-6321",
+        "patient_case": "Dental Checkup",
+        "doctor_name": "Dr. Joseph",
+        "department_name": "Dental",
+        "appointment_date": "01/10/23",
+        "appointment_time": "3:00 pm",
+        "send_email": true,
+        "send_sms": true
+    }
+]

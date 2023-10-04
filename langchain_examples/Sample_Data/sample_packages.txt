@@ -1,0 +1,11 @@
+name, type, features, cost
+Dental Implant, Dental, Dental implants are artificial structures that a dental surgeon inserts into a person’s jawbone. A person may need an implant if they have lost one or more teeth., Rs. 5000
+Cardiac Stent, Heart, A cardiac stent is a tiny mesh tube that is inserted into a blocked or narrowed coronary artery. It helps keep the artery open and improves blood flow., Rs. 15000
+Nasal Decongestant Spray, Nose, Nasal decongestant sprays are used to relieve congestion and stuffiness in the nasal passages. They work by narrowing the blood vessels in the nose., Rs. 200
+Gastric Bypass Surgery, Stomach, Gastric bypass surgery is a weight loss procedure that involves rerouting the digestive system. It helps patients with severe obesity lose weight and improve their health., Rs. 25000
+Dental Crown, Dental, A dental crown is a cap placed over a damaged tooth to restore its shape, size, and strength. It can be made from various materials, including porcelain and metal., Rs. 3000
+Nasogastric Tube, Stomach, A nasogastric tube is inserted through the nose and into the stomach. It is used for feeding or administering medications to patients who cannot eat normally., Rs. 150
+Holter Monitor, Heart, A Holter monitor is a portable device that continuously records a person's heart activity, including their heart rate and rhythm, over 24 to 48 hours., Rs. 1000
+Dental Braces, Dental, Dental braces are orthodontic devices used to correct misaligned teeth and bite issues. They consist of brackets and wires that apply pressure to move the teeth into the desired position., Rs. 8000
+Nasal CPAP Machine, Nose, A Nasal CPAP (Continuous Positive Airway Pressure) machine is used to treat sleep apnea by delivering a continuous stream of air to keep the airway open during sleep., Rs. 5000
+Gastroscopy, Stomach, Gastroscopy is a procedure in which a flexible tube with a camera is inserted through the mouth into the stomach to diagnose and treat gastrointestinal conditions., Rs. 4000
