@@ -1,6 +1,7 @@
 // Import required modules
 const { OpenAI } = require("openai");
 const fetch = require('node-fetch');
+const e = require("cors");
 // Define the main function for handling requests
 exports.handler = async function(context, event, callback) {
     // Set up the OpenAI API with the API key
@@ -27,8 +28,10 @@ exports.handler = async function(context, event, callback) {
 
     // Create a conversation variable to store the dialog and the user's input to the conversation history
       // Make an HTTP POST request to your /api/chat endpoint
+      // the ngrok url is of the backend server of the talkativegptassistant for current
+      // e.g.  https://ae82-2405-201-4036-8842-95ca-a370-f534-6b88.ngrok.io/api/call
       try {
-        const chatResponse = await fetch('https://ngrok url of the server/api/call', {
+        const chatResponse = await fetch('https://ngrok_url_of_the_server/api/call', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
