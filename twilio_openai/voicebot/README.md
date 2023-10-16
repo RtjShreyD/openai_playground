@@ -45,14 +45,30 @@ Before you start integrating Twilio with ChatGPT, make sure you have the followi
 
 ### Creating Functions
 
-5. Create two Functions, `/transcribe` and `/respond` and `/makeacall`. Create JavaScript files named `transcribe.js` and `respond.js` in the functions folder of your project.
+5. Create two Functions mainly , `/transcribe` and `/respond` ,and `/makeacall`[it is for outgoing call ]. Create JavaScript files named `transcribe.js` and `respond.js` in the functions folder of your project.
     /transcribe function - used to generate the user speech to text in real time on the call .
     /respond function - used to generate response for the user query  using chatgpt and convert it to into speech and respond
     /makeacall function - used to make a outbound call to the user using twilio number .
+
    
 ### Choose language Of the agent
    `/english` - the responses will be in english only and the query also in english
    `/hindi` - the responses can in hindi or english or both and query also . 
+
+### End_to end api testing 
+
+Open the `function/end_to_end` folder and copy the transcribe.js and respond.js for the api functionality code .
+
+Run the server of the talkativegptAssistant and on the localhost 8000 and then generate a  ngrok url by the command `ngrok http 8000` , a ngrok url will generate such that `https://ae82-2405-201-4036-8842-95ca-a370-f534-6b88.ngrok.io`,copy the url.
+
+Open the respond.js function then paste the ngrok url calling `/api/call` e.g
+`https://ae82-2405-201-4036-8842-95ca-a370-f534-6b88.ngrok.io/api/call` , then deploy the server using `twilio serverless deploy :force`.
+
+
+now use the following command for updating the deployment for incoming call on that twilio number 
+{// the url of transcribe function is generated after the following command `twilio serverless deploy :force` .}
+
+` twilio phone-numbers:update <PN SID or E.164> --voice-url=<The URL for the /transcribe Function>`
     
 ### Transcribe Function
 
@@ -149,4 +165,8 @@ Using this API you can retrieve the requests, responses, and associated paramete
 
   ![Alt text](readmeassets/Call_Details.png)
   ![Alt text](readmeassets/Request_logs.png)
-   
+
+
+
+      
+    
