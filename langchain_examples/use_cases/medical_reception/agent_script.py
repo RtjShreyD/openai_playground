@@ -375,7 +375,7 @@ class ReceptionistGPT(Chain, BaseModel):
         self.conversation_history.append(human_input)
 
     def step(self):
-        self._call(inputs={})
+        return self._call(inputs={})
 
     def _call(self, inputs: Dict[str, Any]) -> None:
         """Run one step of the receptionist agent."""
@@ -406,13 +406,13 @@ class ReceptionistGPT(Chain, BaseModel):
             )
 
         # Add agent's response to conversation history
-        print(f"{self.agent_name}: ", ai_message.rstrip("<END_OF_TURN>"))
+        # print(f"{self.agent_name}: ", ai_message.rstrip("<END_OF_TURN>"))
         ai_message = self.agent_name + ": " + ai_message
         if "<END_OF_TURN>" not in ai_message:
             ai_message += " <END_OF_TURN>"
         self.conversation_history.append(ai_message)
 
-        return {}
+        return (f"{self.agent_name}: ", ai_message.rstrip("<END_OF_TURN>"))
 
     @classmethod
     def from_llm(cls, llm: BaseLLM, verbose: bool = False, **kwargs) -> "ReceptionistGPT":
@@ -457,10 +457,6 @@ class ReceptionistGPT(Chain, BaseModel):
                 tools_list = get_information_tool(input_catalog_file, info_name, tool_name, tool_description)
                 tools += tools_list
 
-            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-            print(tools)
-            print(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>")
-
             prompt = CustomPromptTemplateForTools(
                 template=RECEPTION_AGENT_TOOLS_PROMPT,
                 tools_getter=lambda x: tools,
@@ -476,10 +472,6 @@ class ReceptionistGPT(Chain, BaseModel):
                     "conversation_history"
                 ],
             )
-
-            print("??????????????????????????????????????????????????")
-            print(prompt)
-            print("??????????????????????????????????????????????????")
 
             llm_chain = LLMChain(llm=llm, prompt=prompt, verbose=verbose)
             tool_names = [tool.name for tool in tools]
@@ -566,13 +558,13 @@ reception_agent.seed_agent()
 reception_agent.determine_conversation_stage()
 
 resp = reception_agent.step()
-print(resp)
+print(resp[1])
 
 while True:
     human_input = str(input("Human :"))
     reception_agent.human_step(human_input)
     reception_agent.determine_conversation_stage()
     resp = reception_agent.step()
-    print(resp)
+    print(resp[1])
     print("\n================================")
 
