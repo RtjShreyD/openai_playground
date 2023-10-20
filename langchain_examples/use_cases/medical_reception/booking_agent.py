@@ -9,7 +9,7 @@
 # from langchain.tools import BaseTool
 # from pydantic import BaseModel, Field
 # from typing import Optional, Type
-# from datetime import datetime, timedelta
+from datetime import datetime, timedelta
 # from jinja2 import Template
 # import random
 
@@ -22,6 +22,7 @@ import random
 import os
 import re
 from dotenv import load_dotenv
+import redis
 
 load_dotenv()
 
@@ -30,44 +31,43 @@ os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
 llm = ChatOpenAI(model_name="gpt-4", temperature=0, verbose=True)
 
+redis_client = redis.Redis(host='localhost', port=6379, db=0)
+
 def book_appointment(input_string):
     # Use regex to extract values from the input string
-    pattern = r"session_id=(\d+) doctor_name=(.*?) appointment_time=(\d{2}:\d{2}) appointment_date=(\d{4}-\d{2}-\d{2})"
+    pattern = r"session_id=(\d+) doctor_name=(.*?) appointment_time=(\d{2}:\d{2}) appointment_day=(\w+)"
     match = re.search(pattern, input_string)
+
+    # Generate a random 4-digit number
+    booking_id = random.randint(1000, 9999)
     
     if match:
         session_id = match.group(1)
         doctor_name = match.group(2)
         appointment_time = match.group(3)
-        appointment_date = match.group(4)
+        appointment_day = match.group(4)
         
+        # Calculate the appointment_date based on today's date and the appointment_day
+        today = datetime.now().date()
+        days_ahead = (datetime.strptime(appointment_day, "%A").weekday() - today.weekday()) % 7
+        appointment_date = today + timedelta(days=days_ahead)
+        appointment_date = appointment_date.strftime("%Y-%m-%d")
+
         # Create a dictionary with the extracted values
-        appointment_data = {
+        appointment_info = {
             "session_id": session_id,
             "doctor_name": doctor_name,
             "appointment_time": appointment_time,
-            "appointment_date": appointment_date
+            "appointment_date": appointment_date,
+            "booking_no" : booking_id
         }
         
-        # Check if the JSON file exists
-        try:
-            with open("appointments.json", "r") as file:
-                appointments = json.load(file)
-        except FileNotFoundError:
-            appointments = []
-        
-        # Add the new appointment data to the list
-        appointments.append(appointment_data)
-        
-        # Write the updated list to the JSON file
-        with open("appointments.json", "w") as file:
-            json.dump(appointments, file)
-        
-        # Generate a random 4-digit number
-        random_number = random.randint(1000, 9999)
+        redis_key = f"{session_id}_booking_info"
+        json_data = json.dumps(appointment_info)
+        redis_client.set(redis_key, json_data)
         
         # Return the random number
-        return random_number
+        return booking_id, appointment_time, appointment_date
     else:
         return None
 
@@ -77,15 +77,15 @@ def book_appointment(input_string):
 book_appointment_tool = Tool(
     name="book_appointment",
     func=book_appointment,
-    description="Stores appointment details in a JSON file and returns a random 4-digit number"
+    description="Takes an input string containing session_id, doctor_name, appointment_time, appointment_day and returns booking_id, appointment_time, appointment_day, appointment_date"
 )
 
-agent = initialize_agent([book_appointment_tool], llm)
+agent = initialize_agent([book_appointment_tool], llm, verbose=True)
 
 input_data = {
-    "input": "book_appointment session_id=123 doctor_name=Dr. Smith appointment_time=10:00 appointment_date=2022-12-31"
+    "input": "book_appointment session_id=1234 doctor_name=Dr. Smith appointment_time=12:00 appointment_day=Monday"
 }
 output_data = agent.invoke(input_data)
 
 # Print the output
-print(output_data["output"])
+print(output_data)
