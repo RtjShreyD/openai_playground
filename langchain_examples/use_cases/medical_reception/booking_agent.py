@@ -1,19 +1,4 @@
-# from langchain.chat_models import ChatOpenAI
-# from langchain.document_loaders import TextLoader
-# from langchain.text_splitter import CharacterTextSplitter
-# from langchain.embeddings.openai import OpenAIEmbeddings
-# from langchain.vectorstores import Chroma
-# from langchain.chains import RetrievalQA
-# from langchain.agents import initialize_agent, Tool, AgentType
-# from langchain.chains.conversation.memory import ConversationBufferMemory, ConversationBufferWindowMemory
-# from langchain.tools import BaseTool
-# from pydantic import BaseModel, Field
-# from typing import Optional, Type
 from datetime import datetime, timedelta
-# from jinja2 import Template
-# import random
-
-
 from langchain.agents import initialize_agent, Tool
 from langchain.chat_models import ChatOpenAI
 import json
@@ -69,9 +54,7 @@ def book_appointment(input_string):
         # Return the random number
         return booking_id, appointment_time, appointment_date
     else:
-        return None
-
-
+        return None, None, None
 
 
 book_appointment_tool = Tool(
