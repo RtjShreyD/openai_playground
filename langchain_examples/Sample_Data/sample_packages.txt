@@ -1,4 +1,4 @@
-name, type, features, cost
+Name, Type, Features, Cost
 Dental Implant, Dental, Dental implants are artificial structures that a dental surgeon inserts into a person’s jawbone. A person may need an implant if they have lost one or more teeth., Rs. 5000
 Cardiac Stent, Heart, A cardiac stent is a tiny mesh tube that is inserted into a blocked or narrowed coronary artery. It helps keep the artery open and improves blood flow., Rs. 15000
 Nasal Decongestant Spray, Nose, Nasal decongestant sprays are used to relieve congestion and stuffiness in the nasal passages. They work by narrowing the blood vessels in the nose., Rs. 200
@@ -9,3 +9,7 @@ Holter Monitor, Heart, A Holter monitor is a portable device that continuously r
 Dental Braces, Dental, Dental braces are orthodontic devices used to correct misaligned teeth and bite issues. They consist of brackets and wires that apply pressure to move the teeth into the desired position., Rs. 8000
 Nasal CPAP Machine, Nose, A Nasal CPAP (Continuous Positive Airway Pressure) machine is used to treat sleep apnea by delivering a continuous stream of air to keep the airway open during sleep., Rs. 5000
 Gastroscopy, Stomach, Gastroscopy is a procedure in which a flexible tube with a camera is inserted through the mouth into the stomach to diagnose and treat gastrointestinal conditions., Rs. 4000
+Skin-Care Treatment, Dermatology, Skin-care treatment packages include various procedures such as facials, chemical peels, and microdermabrasion to improve the skin's texture, tone, and appearance., Rs. 3000
+Eye Laser Surgery, Ophthalmology, Eye laser surgery, also known as laser refractive surgery, corrects vision problems by reshaping the cornea using a laser. It reduces or eliminates the need for glasses or contact lenses., Rs. 12000
+Liposuction, Plastic Surgery, Liposuction is a cosmetic procedure that removes excess fat deposits from specific areas of the body to enhance the body's contour. It is often performed on the abdomen, thighs, hips, and buttocks., Rs. 20000
+Child Vaccination Package, Pediatrics, Child vaccination packages include a series of essential vaccinations to protect infants and children from various diseases, ensuring their overall health and well-being., Rs. 2000
