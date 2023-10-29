@@ -8,6 +8,8 @@ from langchain.agents import initialize_agent, Tool
 from langchain.chains.conversation.memory import ConversationBufferMemory, ConversationBufferWindowMemory
 from datetime import datetime, timedelta
 
+from langchain.memory.chat_message_histories.redis import RedisChatMessageHistory
+
 import re
 import json
 import random
@@ -120,10 +122,8 @@ packagesearch = Chroma.from_documents(texts, embeddings, collection_name="names-
 info_of_packages = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retriever=packagesearch.as_retriever())
 
 agent_name="Uday"
-session_id="ACOMPLEXSESSIONID"
+
 hospital_name="Surya Hospital"
-today_date = datetime.today().strftime('%Y-%m-%d')
-day_of_week = datetime.today().strftime('%A')
 
 hospital_address="Surya Hospital, Gandhi Road, Near Railway Station, Kochi, Kerala, India"
 hospital_phone="+91 484 123 4567"
@@ -147,7 +147,7 @@ tools=[Tool(
             func=book_appointment,
             description='''
                 Useful for starting appointment booking procedure. 
-                Takes a single input dictionary containing session_id, doctor_name, appointment_time, appointment_day.
+                Takes a json input containing session_id, doctor_name, appointment_time, appointment_day.
                 Make sure to convert the appointment_time to 24hr time format or HH:MM AM/PM format before calling this function.
                 Returns booking_id, appointment_time, appointment_day, appointment_date contained in a string.
                 '''
@@ -159,12 +159,10 @@ CONVERSATIONAL_AGENT_PROMPT = f"""
 You are an AI agent, named {agent_name}, who functions as a receptionist at {hospital_name} Hospital. 
 You specialize in handling inquiries related to health, doctors, hospital services, and matters within the given context.
 You are also capable enough to recommend doctors with their specialisation based on the symptoms of the patient.
+You are an expert json builder and parser.
 You are smart enough to use tools to determine a certain type of information requested.
 
 **GENERAL INFORMATION AVAILABLE:**
-- **Session_Id:** {session_id}
-- **Today's Date:** {today_date}
-- **Day of the Week**: {day_of_week}
 - **Hospital Name:** {hospital_name}
 - **Address:** {hospital_address}
 - **Phone Number:** {hospital_phone}
@@ -197,27 +195,47 @@ Do not try to conclude the conversation instead try to be helpful and engage the
 Begin!
 """
 
-
-# memory = ConversationBufferWindowMemory(
-#     memory_key='chat_history',
-#     k=3,
-#     return_messages=True
-# )
-
-memory= ConversationBufferMemory(memory_key="chat_history")
+# memory= ConversationBufferMemory(memory_key="chat_history")
 conversational_agent_chain = initialize_agent(
     tools, 
     llm, 
     agent="conversational-react-description",
-    memory=memory, 
     verbose=True
     )
 
 
-print(conversational_agent_chain.run(CONVERSATIONAL_AGENT_PROMPT))
+# Session config vars
+base_session_id = session_id = "dynamic4"
+today_date = datetime.today().strftime('%Y-%m-%d')
+day_of_week = datetime.today().strftime('%A')
+
+chat_history = RedisChatMessageHistory(
+    url="redis://localhost:6379/0", 
+    ttl=600, 
+    session_id=base_session_id
+)
+# memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=chat_history)
+
+# history is empty
+agent_begin_resp = conversational_agent_chain.run(input=CONVERSATIONAL_AGENT_PROMPT, chat_history=[])
+print(agent_begin_resp)
+
+chat_history.add_user_message(CONVERSATIONAL_AGENT_PROMPT)
+chat_history.add_ai_message(agent_begin_resp)
+chat_history.add_user_message(f"session_id - {base_session_id}, today's date - {today_date}, day of the week - {day_of_week}")
+
 
 while True:
-    human_input = str(input("Human :"))
-    resp = conversational_agent_chain.run(human_input)
+    human_input = str(input("Human: "))
+    
+    # Read chat history from Redis and include in agent.run
+    updated_history = chat_history.messages
+    chat_history.add_user_message(human_input)
+    
+    resp = conversational_agent_chain.run(input=human_input, chat_history=updated_history)
     print(resp)
+    print("\n================================")
+    
+    # # Update chat history in Redis
+    chat_history.add_ai_message(resp) 
     print("\n================================")
