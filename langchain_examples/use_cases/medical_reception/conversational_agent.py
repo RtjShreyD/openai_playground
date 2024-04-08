@@ -20,10 +20,10 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 os.environ["OPENAI_API_KEY"] = OPENAI_API_KEY
 
-llm = ChatOpenAI(model_name="gpt-4", temperature=0, verbose=True)
+llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0, verbose=True)
 
 # Loading the doctors list text file and splitting it into chunks
-text_document_path = "/home/rtj/Projects/openai_playground/langchain_examples/Sample_Data/sample_doctors.txt"  # Doctors list
+text_document_path = "./langchain_examples/Sample_Data/sample_doctors.txt"  # Doctors list
 loader = TextLoader(text_document_path)
 documents = loader.load()
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
@@ -36,7 +36,7 @@ names_of_doctors = RetrievalQA.from_chain_type(llm=llm, chain_type="stuff", retr
 
 
 # Loading the packages list text file and splitting it into chunks
-text_document_path = "/home/rtj/Projects/openai_playground/langchain_examples/Sample_Data/sample_packages.txt"  # Packages list
+text_document_path = "./langchain_examples/Sample_Data/sample_packages.txt"  # Packages list
 loader = TextLoader(text_document_path)
 documents = loader.load()
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=50)
@@ -60,21 +60,21 @@ tools=[Tool(
            description="useful when you need to answer questions about the available medical facilities(/packages) available in the given medical facility."
        )]
 
-# memory = ConversationBufferWindowMemory(
-#     memory_key='chat_history',
-#     k=3,
-#     return_messages=True
-# )
+memory = ConversationBufferWindowMemory(
+    memory_key='chat_history',
+    k=3,
+    return_messages=True
+)
 
 
-memory= ConversationBufferMemory(memory_key="chat_history") # You can use other memory types as well!
+# memory= ConversationBufferMemory(memory_key="chat_history") # You can use other memory types as well!
 agent_chain = initialize_agent(
     tools, 
     llm, 
     agent="conversational-react-description",
     memory=memory, 
     verbose=True, 
-    # handle_parsing_errors=True
+    handle_parsing_errors=True      # Used with GPT 3.5
     )
 
 
