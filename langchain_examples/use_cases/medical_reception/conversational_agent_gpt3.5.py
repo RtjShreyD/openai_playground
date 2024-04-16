@@ -58,7 +58,6 @@ memory = ConversationBufferWindowMemory(
     memory_key='chat_history',
     k=3,
     return_messages=True,
-    
 )
 # memory= ConversationBufferMemory(memory_key="chat_history") # You can use other memory types as well!
 
